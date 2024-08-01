@@ -1,20 +1,7 @@
 #!/usr/bin/env bash
-# Install nginx on web server; Nginx should be listening on port 80
-
-# Update package list and install Nginx
+# Installs nginx server
 apt-get update
-apt-get install -y nginx
-
-# Create custom index.html
-echo "Hello World!" > /var/www/html/index.html
-# Ensure Nginx is listening on port 80
-sed -i 's/listen 80 default_server;/listen 80;/' /etc/nginx/sites-available/default
-
-# Start Nginx without using systemctl
-nginx -s reload || nginx
-
-# Ensure Nginx starts on boot
-update-rc.d nginx defaults
-
-# Restart Nginx to apply changes
-service nginx restart
+apt-get -y install nginx
+ufw allow 'Nginx HTTP'
+echo "Holberton School" > /var/www/html/index.html
+service nginx start
